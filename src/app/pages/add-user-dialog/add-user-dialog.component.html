@@ -1,0 +1,42 @@
+<div class="form-container">
+  <h2>➕ Add New User</h2>
+  <form [formGroup]="userForm" (submit)="saveUser()">
+    <label>Name:</label>
+    <input type="text" formControlName="name" required>
+
+    <label>Username:</label>
+    <input type="text" formControlName="username" required>
+
+    <label>Email:</label>
+    <input type="email" formControlName="email" required>
+
+    <label>Password:</label>
+    <input type="password" formControlName="password" required>
+
+    <label>Phone:</label>
+    <input type="text" formControlName="phone" required>
+
+    <label>Location:</label>
+    <input type="text" formControlName="location" required>
+
+    <label>Address:</label>
+    <input type="text" formControlName="address">
+
+    <label>Select Shop:</label>
+    <select formControlName="shopId" required>
+      <option *ngFor="let shop of shops" [value]="shop.shopId">{{ shop.name }}</option>
+    </select>
+
+    <label>Roles:</label>
+    <select formControlName="roles" multiple>
+      <option *ngFor="let role of availableRoles" [value]="role.value">
+        {{ role.label }}
+      </option>
+    </select>
+
+    <div class="modal-buttons">
+      <button type="submit" [disabled]="userForm.invalid">✅ Save</button>
+      <button type="button" (click)="closeDialog()">❌ Cancel</button>
+    </div>
+  </form>
+</div>

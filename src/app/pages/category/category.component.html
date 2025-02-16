@@ -1,0 +1,62 @@
+<!-- Sidebar -->
+<div class="sidebar">
+  <h2>📊 Dashboard</h2>
+  <ul>
+    <li><a routerLink ="/dashboard">🏠 Home</a></li>
+    <li><a routerLink ="/users">👥 Users</a></li>
+    <li><a routerLink="/shops">🏬 Shops</a></li>
+    <li><a routerLink="/category">📂 Categories</a></li>
+    <li><a routerLink="/items">📦 Items</a></li>
+    <li><a routerLink="/bills">🧾 Bills</a></li>
+    <li><a href="#">📊 Reports</a></li>
+    <li><a href="#">⚙ Settings</a></li>
+    <li><a routerLink="/logout">🚪 Logout</a></li>
+  </ul>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+
+  <div class="users-page">
+    <h1>📂 Category Management</h1>
+
+    <!-- Search Bar -->
+    <div class="top-controls">
+      <button class="add-btn" (click)="openAddCategoryDialog()">➕ Add Category</button>
+      <div class="search-container">
+        <input type="text"  placeholder="🔍 Search category..." />
+        <i class="fa fa-search search-icon"></i>
+      </div>
+    </div>
+
+    <!-- User Table -->
+    <div class="table-container">
+      <table>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let cat of category">
+          <td>{{ cat.category }}</td>
+          <td>
+            <button class="edit-btn" (click)="openEditDialog(cat)">✏ Edit</button>
+            <button class="delete-btn" (click)="openDeleteDialog(cat, $event)">🗑 Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">⬅ Prev</button>
+      <span>Page {{ currentPage }} of {{ totalPages() }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage >= totalPages()">Next ➡</button>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,42 @@
+<div class="form-container">
+  <h2>✏️ Edit Item</h2>
+  <form [formGroup]="itemForm" (submit)="updateItem()">
+    <label>Item Name:</label>
+    <input type="text" formControlName="productName" required>
+
+    <label>Select Category:</label>
+    <select formControlName="categoryId" required>
+      <option *ngFor="let cat of category" [value]="cat.categoryId">{{ cat.category }}</option>
+    </select>
+
+    <label>Quantity:</label>
+    <input type="text" formControlName="quantity" required>
+
+    <label>Units:</label>
+    <select formControlName="units" required>
+      <option *ngFor="let unit of availableUnits" [value]="unit.value">{{ unit.label }}</option>
+    </select>
+
+    <label>Price per Quantity:</label>
+    <input type="text" formControlName="actualPrice" required>
+
+    <label>Selling Price per Quantity:</label>
+    <input type="text" formControlName="rate" required>
+
+    <label>Manufactured Date:</label>
+    <input type="date" formControlName="mfdDate" required>
+
+    <label>Expired Date:</label>
+    <input type="date" formControlName="expDate">
+
+    <label>Select Shop:</label>
+    <select formControlName="shopId" required>
+      <option *ngFor="let shop of shops" [value]="shop.shopId">{{ shop.name }}</option>
+    </select>
+
+    <div class="modal-buttons">
+      <button type="submit" [disabled]="itemForm.invalid">✅ Save</button>
+      <button type="button" (click)="closeDialog()">❌ Cancel</button>
+    </div>
+  </form>
+</div>

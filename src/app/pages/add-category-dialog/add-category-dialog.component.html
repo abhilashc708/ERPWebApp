@@ -1,0 +1,11 @@
+<div class="form-container">
+  <h2>➕ Add New Category</h2>
+  <form [formGroup]="categoryForm" (submit)="saveCategory()">
+    <label>Category:</label>
+    <input type="text" formControlName="category" required>
+    <div class="modal-buttons">
+      <button type="submit" [disabled]="categoryForm.invalid">✅ Save</button>
+      <button type="button" (click)="closeDialog()">❌ Cancel</button>
+    </div>
+  </form>
+</div>

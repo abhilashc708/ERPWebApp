@@ -1,0 +1,35 @@
+<div id="invoice" class="invoice-container">
+  <h2 class="centered">Demo Invoice</h2>
+  <p><strong>Bill Code:</strong> {{ bill?.billCode }} </p>
+  <p><strong>Date:</strong> {{ bill?.billingDate | date: 'dd-MMM-yyyy' }} </p>
+  <p><strong>Shop:</strong> {{ bill?.shop?.name }} </p>
+  <p><strong>Customer:</strong> {{ bill?.phone }} </p>
+  <hr />
+  <table>
+    <thead>
+    <tr>
+      <th class="product-column">Item</th>
+      <th>Qty</th>
+      <th>Price</th>
+      <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+<tr *ngFor="let item of bill?.items">
+  <td class="product-name" [title]="item.product.productName">
+    {{ item.product.productName }}
+  </td>
+  <td>{{ item.quantity }} </td>
+  <td>₹  {{ item.price }} </td>
+  <td>₹  {{ item.quantity * item.price }} </td>
+    </tr>
+    </tbody>
+  </table>
+  <hr />
+  <h3 class="centered">Total: ₹  {{ getTotalAmount() }}</h3>
+  <p class="centered">Thank You! 😊</p>
+  <div class="btn-container">
+    <button (click)="print()">🖨 Print</button>
+    <button (click)="downloadPDF()">📥 Download PDF</button>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="form-container">
+  <h2>➕ Add New Shop</h2>
+  <form [formGroup]="shopForm" (submit)="saveShop()">
+    <label>Name:</label>
+    <input type="text" formControlName="name" required>
+
+    <label>Email:</label>
+    <input type="email" formControlName="email" required>
+
+    <label>Phone:</label>
+    <input type="text" formControlName="phone" required>
+
+    <label>Location:</label>
+    <input type="text" formControlName="location" required>
+
+    <label>Address:</label>
+    <input type="text" formControlName="address">
+
+    <div class="modal-buttons">
+      <button type="submit" [disabled]="shopForm.invalid">✅ Save</button>
+      <button type="button" (click)="closeDialog()">❌ Cancel</button>
+    </div>
+  </form>
+</div>

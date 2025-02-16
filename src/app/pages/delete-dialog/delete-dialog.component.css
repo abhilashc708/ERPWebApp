@@ -1,0 +1,109 @@
+/* Ensure the page doesn't have unwanted margins or scrolling */
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Prevents background scrolling */
+}
+
+/* Overlay that covers the full screen */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay effect */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Popup Box */
+.popup-box {
+  background: white;
+  width: 380px; /* Adjusted to avoid unnecessary space */
+  max-width: 90%;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: popupFadeIn 0.3s ease-in-out;
+}
+
+/* Title inside popup */
+.popup-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Message inside popup */
+.popup-message {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+/* Button container */
+.popup-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Delete Button */
+.delete-btn {
+  background: #e74c3c;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  flex: 1;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+}
+
+/* Cancel Button */
+.cancel-btn {
+  background: #bdc3c7;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  flex: 1;
+  transition: 0.2s;
+}
+
+.cancel-btn:hover {
+  background: #95a5a6;
+}
+
+/* Fade-in animation */
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Hide popup */
+.hidden {
+  display: none;
+}
+

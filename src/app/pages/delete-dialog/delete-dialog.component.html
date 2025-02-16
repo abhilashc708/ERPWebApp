@@ -1,0 +1,11 @@
+<div class="popup-overlay">
+  <div class="popup-box">
+    <div class="popup-title">Confirm Deletion</div>
+    <div class="popup-message">Are you sure you want to delete <b>{{ data.name }}</b>?</div>
+    <div class="popup-buttons">
+      <button class="delete-btn" (click)="confirmDelete()">Delete</button>
+      <button class="cancel-btn" (click)="closeDialog()">Cancel</button>
+    </div>
+  </div>
+</div>
+
