@@ -8,5 +8,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './layout.component.css'
 })
 export class LayoutComponent {
-
+ toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar?.classList.toggle('open');
+  }
 }
