@@ -112,5 +112,9 @@ export class CategoryComponent implements OnInit{
                         });
                       }
 
+toggleSidebar() {
+                  const sidebar = document.getElementById('sidebar');
+                  sidebar?.classList.toggle('open');
+              }
 
 }

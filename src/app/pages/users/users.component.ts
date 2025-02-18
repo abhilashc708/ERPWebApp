@@ -110,4 +110,9 @@ users = signal<User[]>([]); // Angular 19 Signal
       }
     });
   }
+
+toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar?.classList.toggle('open');
+}
 }

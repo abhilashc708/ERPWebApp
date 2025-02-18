@@ -1,51 +1,3 @@
-<!--&lt;!&ndash; Sidebar &ndash;&gt;-->
-<!--<div class="sidebar">-->
-<!--  <h2>📊 Dashboard</h2>-->
-<!--  <ul>-->
-<!--    <li><a routerLink ="/dashboard">🏠 Home</a></li>-->
-<!--    <li><a routerLink ="users">👥 Users</a></li>-->
-<!--    <li><a routerLink="/shops">🏬 Shops</a></li>-->
-<!--    <li><a routerLink="/category">📂 Categories</a></li>-->
-<!--    <li><a routerLink="/items">📦 Items</a></li>-->
-<!--    <li><a routerLink="/bills">🧾 Bills</a></li>-->
-<!--    <li><a href="#">📊 Reports</a></li>-->
-<!--    <li><a href="#">⚙ Settings</a></li>-->
-<!--    <li><a routerLink="/logout">🚪 Logout</a></li>-->
-<!--  </ul>-->
-<!--</div>-->
-
-<!--&lt;!&ndash; Main Content &ndash;&gt;-->
-<!--<div class="main-content">-->
-<!--  <div class="topbar">-->
-<!--    <input type="text" placeholder="🔍 Search...">-->
-<!--    <div class="profile">👤 Admin</div>-->
-<!--  </div>-->
-
-<!--  <div class="dashboard">-->
-<!--    <h1>Welcome, Admin</h1>-->
-<!--    <div class="cards">-->
-<!--      <div class="card">-->
-<!--        <h3>Users</h3>-->
-<!--        <p>📈 1,245</p>-->
-<!--      </div>-->
-<!--      <div class="card">-->
-<!--        <h3>Orders</h3>-->
-<!--        <p>🛒 432</p>-->
-<!--      </div>-->
-<!--      <div class="card">-->
-<!--        <h3>Revenue</h3>-->
-<!--        <p>💰 $25,678</p>-->
-<!--      </div>-->
-<!--      <div class="card">-->
-<!--        <h3>Feedbacks</h3>-->
-<!--        <p>💬 98</p>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-
-
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
   <button class="close-btn" (click)="toggleSidebar()">✖</button>
@@ -70,6 +22,20 @@
 
   <div class="topbar">
     <input type="text" placeholder="🔍 Search...">
+    <!-- New buttons -->
+    <!--<button class="sales-btn">💸 Sales</button>
+    <button class="expense-btn">💵 Expense</button>-->
+    <!-- Sales Button -->
+    <button class="sales-btn">
+      <span>Sales</span> <!-- This will be hidden on mobile -->
+      💵 <!-- Example icon for Sales -->
+    </button>
+
+    <!-- Expense Button -->
+    <button class="expense-btn">
+      <span>Expense</span> <!-- This will be hidden on mobile -->
+      💸 <!-- Example icon for Expense -->
+    </button>
     <div class="profile">👤 Admin</div>
   </div>
 

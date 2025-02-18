@@ -112,4 +112,8 @@ export class ItemsComponent implements OnInit{
                       });
                     }
 
+toggleSidebar() {
+                  const sidebar = document.getElementById('sidebar');
+                  sidebar?.classList.toggle('open');
+              }
 }

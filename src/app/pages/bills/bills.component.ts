@@ -34,7 +34,6 @@ bills: any[] = []; //
 
 
                  fetchBills() {
-                   debugger;
                    this.billService.getBills().subscribe({
                      next: (data) => {
                        this.bills = data || []; // Ensure it's never undefined
@@ -87,11 +86,15 @@ prevPage() {
                                        }
 
                                      printInvoice(bill: any) {
-                                       debugger;
                                        const dialogRef = this.dialog.open(InvoiceComponent, {
                                          width: 'auto', // Prevent full width
                                         data: { bill }  // ✅ Pass the bill object properly
                                        });
                                      }
+
+                                   toggleSidebar() {
+                                                     const sidebar = document.getElementById('sidebar');
+                                                     sidebar?.classList.toggle('open');
+                                                 }
 
 }

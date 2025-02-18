@@ -256,12 +256,14 @@
     padding: 20px;
     background: #f8f9fa;
     min-height: 100vh;
+    transition: margin-left 0.3s ease; /* Smooth transition */
 }
 
 /* Top Bar */
 .topbar {
     display: flex;
     justify-content: space-between;
+     align-items: center; /* Align items vertically */
     background: white;
     padding: 12px 20px;
     border-radius: 10px;
@@ -283,6 +285,76 @@
     border-radius: 20px;
     cursor: pointer;
     font-weight: 500;
+}
+
+/* New Buttons */
+.sales-btn, .expense-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 10px; /* Reduced margin */
+}
+
+.sales-btn {
+    background-color: #28a745; /* Green for Sales */
+}
+
+.expense-btn {
+    background-color: #dc3545; /* Red for Expense */
+}
+
+.sales-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.expense-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+/* Make sure there's no unnecessary space between elements */
+.topbar {
+    display: flex;
+    justify-content: flex-start; /* Align everything to the left */
+    gap: 10px; /* Add a gap between elements, including the buttons */
+}
+
+.topbar input {
+    margin-right: auto; /* Push the search bar to the left */
+}
+
+.profile {
+    margin-left: 10px; /* Ensure profile is close to the buttons */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    /* Adjust button size for mobile screens */
+    .sales-btn, .expense-btn {
+        padding: 6px 12px; /* Smaller padding */
+        font-size: 14px;   /* Smaller font size */
+        margin-left: 5px;  /* Reduced margin for mobile */
+    }
+     /* Remove label text on mobile */
+        .sales-btn span, .expense-btn span {
+            display: none; /* Hide text label inside the button */
+        }
+
+        .topbar {
+            flex-direction: row;  /* Ensure horizontal layout on mobile */
+            gap: 10px;             /* Add a gap between elements */
+        }
+
+    .topbar input {
+        width: 180px; /* Reduced width for input */
+    }
+
+    .profile {
+        font-size: 14px; /* Adjust profile font size for mobile */
+    }
 }
 
 /* Dashboard */

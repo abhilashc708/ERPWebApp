@@ -1,5 +1,6 @@
 <!-- Sidebar -->
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
+  <button class="close-btn" (click)="toggleSidebar()">✖</button>
   <h2>📊 Dashboard</h2>
   <ul>
     <li><a routerLink ="/dashboard">🏠 Home</a></li>
@@ -16,7 +17,8 @@
 
 <!-- Main Content -->
 <div class="main-content">
-
+  <!-- Toggle Button for Smaller Screens -->
+  <button class="menu-btn" (click)="toggleSidebar()">☰</button>
   <div class="users-page">
     <h1>🧾 Bills Management</h1>
 
