@@ -22,13 +22,13 @@
   <!-- Toggle Button for Smaller Screens -->
   <button (click)="toggleSidebar()" class="menu-btn">☰</button>
   <div class="users-page">
-    <h1>📦 Items Management</h1>
+    <h1>💰 Expense Management</h1>
 
     <!-- Search Bar -->
     <div class="top-controls">
-      <button (click)="openAddItemDialog()" class="add-btn">➕ Add New Item</button>
+      <button (click)="openAddExpenseDialog()" class="add-btn">➕ Add New Item</button>
       <div class="search-container">
-        <input placeholder="🔍 Search items..." type="text"/>
+        <input placeholder="🔍 Search expenses..." type="text"/>
         <i class="fa fa-search search-icon"></i>
       </div>
     </div>
@@ -38,28 +38,18 @@
       <table>
         <thead>
         <tr>
-          <th>Name</th>
-          <th>Category</th>
-          <th>Quantity</th>
-          <th>Units</th>
-          <th>Price</th>
-          <th>Selling Price</th>
-          <th>Manufactured Date</th>
-          <th>Expired Date</th>
+          <th>Expense Name</th>
+          <th>Cost</th>
+          <th>PaymentMethod</th>
           <th>Shop</th>
           <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of items()">
-          <td>{{ item.productName }}</td>
-          <td>{{ item.category.category }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>{{ item.units }}</td>
-          <td>{{ item.actualPrice }}</td>
+        <tr *ngFor="let item of expenses()">
+          <td>{{ item.expenseItem.expenseItemName }}</td>
           <td>{{ item.rate }}</td>
-          <td>{{ item.mfdDate | date: 'dd-MMM-yyyy' }}</td>
-          <td>{{ item.expDate | date: 'dd-MMM-yyyy' }}</td>
+          <td>{{ item.paymentMethod }}</td>
           <td>{{ item.shop.name }}</td>
           <td>
             <button (click)="openEditDialog(item)" class="edit-btn">✏ Edit</button>

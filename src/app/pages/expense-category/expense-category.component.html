@@ -22,13 +22,13 @@
   <!-- Toggle Button for Smaller Screens -->
   <button (click)="toggleSidebar()" class="menu-btn">☰</button>
   <div class="users-page">
-    <h1>📦 Items Management</h1>
+    <h1>📂 Expense Category Management</h1>
 
     <!-- Search Bar -->
     <div class="top-controls">
-      <button (click)="openAddItemDialog()" class="add-btn">➕ Add New Item</button>
+      <button (click)="openAddExpCategoryDialog()" class="add-btn">➕ Add Category</button>
       <div class="search-container">
-        <input placeholder="🔍 Search items..." type="text"/>
+        <input placeholder="🔍 Search Expense category..." type="text"/>
         <i class="fa fa-search search-icon"></i>
       </div>
     </div>
@@ -39,31 +39,15 @@
         <thead>
         <tr>
           <th>Name</th>
-          <th>Category</th>
-          <th>Quantity</th>
-          <th>Units</th>
-          <th>Price</th>
-          <th>Selling Price</th>
-          <th>Manufactured Date</th>
-          <th>Expired Date</th>
-          <th>Shop</th>
           <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let item of items()">
-          <td>{{ item.productName }}</td>
-          <td>{{ item.category.category }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>{{ item.units }}</td>
-          <td>{{ item.actualPrice }}</td>
-          <td>{{ item.rate }}</td>
-          <td>{{ item.mfdDate | date: 'dd-MMM-yyyy' }}</td>
-          <td>{{ item.expDate | date: 'dd-MMM-yyyy' }}</td>
-          <td>{{ item.shop.name }}</td>
+        <tr *ngFor="let cat of expenseCategory">
+          <td>{{ cat.expenseItemName }}</td>
           <td>
-            <button (click)="openEditDialog(item)" class="edit-btn">✏ Edit</button>
-            <button (click)="openDeleteDialog(item, $event)" class="delete-btn">🗑 Delete</button>
+            <button (click)="openEditExpCategoryDialog(cat)" class="edit-btn">✏ Edit</button>
+            <button (click)="openDeleteDialog(cat, $event)" class="delete-btn">🗑 Delete</button>
           </td>
         </tr>
         </tbody>
@@ -78,4 +62,6 @@
     </div>
   </div>
 </div>
+
+
 

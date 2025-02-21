@@ -22,14 +22,17 @@ export class BillsComponent implements OnInit{
  currentPage: number = 1;
    billsPerPage: number = 8;
 bills: any[] = []; //
-    //bills = signal<Bill[]>([]); // Angular 19 Signal
+
+filteredBills: any[] = [];  // Filtered bills for UI
+  selectedDate: string = '';  // Store selected date
+  selectedShop: string = '';
 
     constructor(private billService: BillService,
                        private dialog: MatDialog,
                         private snackBar: MatSnackBar) {}
 
       ngOnInit() {
-                this.fetchBills();
+                this.fetchBillsForToday();
             }
 
 
@@ -45,15 +48,44 @@ bills: any[] = []; //
                  console.log('data-->', this.bills);
                  }
 
+               // Fetch only today's bills by default
+                 fetchBillsForToday() {
+                   const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+                   this.billService.getBills().subscribe({
+                     next: (data) => {
+                       this.bills = data || [];
+                       this.filteredBills = this.bills.filter(bill => bill.billingDate.startsWith(today)); // Show only today's bills
+                     },
+                     error: (error) => {
+                       console.error('Error fetching bills:', error);
+                     }
+                   });
+                 }
+
+                 // Fetch all bills when searching by date
+                 fetchBillsByDate() {
+                   if (!this.selectedDate) {
+                     this.fetchBillsForToday(); // Reset to today's bills if date is cleared
+                     return;
+                   }
+
+                  this.filteredBills = this.bills.filter(bill => {
+                    const matchesDate = this.selectedDate ? bill.billingDate.startsWith(this.selectedDate) : true;
+                    const matchesShop = this.selectedShop ? bill.shop.name.toLowerCase().includes(this.selectedShop.toLowerCase()) : true;
+                    return matchesDate && matchesShop;
+                  });
+                 }
+
+
 // Compute total pages
 totalPages(): number {
-  return Math.ceil(this.bills.length / this.billsPerPage);
+  return Math.ceil(this.filteredBills.length / this.billsPerPage);
 }
 
 // Get paginated data
 pagedBills(): any[] {
   const startIndex = (this.currentPage - 1) * this.billsPerPage;
-  return this.bills.slice(startIndex, startIndex + this.billsPerPage);
+  return this.filteredBills.slice(startIndex, startIndex + this.billsPerPage);
 }
 
 // Next page
@@ -69,32 +101,32 @@ prevPage() {
     this.currentPage--;
   }
 }
-                     openAddBillDialog() {
-                                         const dialogRef = this.dialog.open(GenerateBillComponent, {
-                                           width: '750px',  // Set width
-                                               maxHeight: '100vh', // Limit max height to 90% of viewport height
-                                               autoFocus: false, // Prevents automatic focus on the first input field
-                                               panelClass: 'custom-dialog-container' // Add custom CSS class
-                                         });
+           openAddBillDialog() {
+              const dialogRef = this.dialog.open(GenerateBillComponent, {
+              width: '750px',  // Set width
+              maxHeight: '100vh', // Limit max height to 90% of viewport height
+              autoFocus: false, // Prevents automatic focus on the first input field
+              panelClass: 'custom-dialog-container' // Add custom CSS class
+              });
 
-                                         dialogRef.afterClosed().subscribe(result => {
-                                           if (result) {
-                                             console.log("Bill added:", result);
-                                              this.fetchBills();
-                                           }
-                                         });
-                                       }
+              dialogRef.afterClosed().subscribe(result => {
+               if (result) {
+                 console.log("Bill added:", result);
+                  this.fetchBills();
+               }
+             });
+           }
 
-                                     printInvoice(bill: any) {
-                                       const dialogRef = this.dialog.open(InvoiceComponent, {
-                                         width: 'auto', // Prevent full width
-                                        data: { bill }  // ✅ Pass the bill object properly
-                                       });
-                                     }
+          printInvoice(bill: any) {
+           const dialogRef = this.dialog.open(InvoiceComponent, {
+           width: 'auto', // Prevent full width
+            data: { bill }  // ✅ Pass the bill object properly
+            });
+          }
 
-                                   toggleSidebar() {
-                                                     const sidebar = document.getElementById('sidebar');
-                                                     sidebar?.classList.toggle('open');
-                                                 }
+        toggleSidebar() {
+          const sidebar = document.getElementById('sidebar');
+          sidebar?.classList.toggle('open');
+        }
 
 }

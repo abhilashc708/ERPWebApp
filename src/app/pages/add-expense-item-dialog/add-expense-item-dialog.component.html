@@ -1,0 +1,11 @@
+<div class="form-container">
+  <h2>➕ Add New Category</h2>
+  <form (submit)="saveExpenseCategory()" [formGroup]="expCategoryForm">
+    <label>Category:</label>
+    <input formControlName="expenseItemName" required type="text">
+    <div class="modal-buttons">
+      <button [disabled]="expCategoryForm.invalid" type="submit">✅ Save</button>
+      <button (click)="closeDialog()" type="button">❌ Cancel</button>
+    </div>
+  </form>
+</div>

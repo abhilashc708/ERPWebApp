@@ -26,32 +26,32 @@ export class AddCategoryDialogComponent implements OnInit{
                         private categoryService: CategoryService) {}
 
          ngOnInit() {
-                            this.categoryForm = this.fb.group({
-                              category: ['', Validators.required]
-                            });
-                          }
+           this.categoryForm = this.fb.group({
+             category: ['', Validators.required]
+                    });
+                  }
 
-                         saveCategory() {
-                                              if (this.categoryForm.valid) {
-                                              const formData = { ...this.categoryForm.value };
-                                                console.log('Category data:', formData);
+          saveCategory() {
+            if (this.categoryForm.valid) {
+              const formData = { ...this.categoryForm.value };
+              console.log('Category data:', formData);
 
-                                                 // ✅ Save category using service
-                                                      this.categoryService.saveCategory(formData).subscribe({
-                                                        next: (response) => {
-                                                          console.log('Category saved successfully:', response);
-                                                           // ✅ Show success message
-                                                          this.snackBar.open('Category added successfully!', 'OK', { duration: 3000, panelClass: 'success-snackbar' });
-                                                          this.catAdded.emit(); // ✅ Notify parent to refresh grid
-                                                          this.dialogRef.close(true);
-                                                        },
-                                                        error: (error) => {
-                                                          console.error('Error saving user:', error);
-                                                          this.snackBar.open('Failed to add category. Please try again.', 'OK', { duration: 3000, panelClass: 'error-snackbar' });
-                                                        }
-                                                      });
-                                              }
-                                            }
+              // ✅ Save category using service
+              this.categoryService.saveCategory(formData).subscribe({
+              next: (response) => {
+                console.log('Category saved successfully:', response);
+                // ✅ Show success message
+                this.snackBar.open('Category added successfully!', 'OK', { duration: 3000, panelClass: 'success-snackbar' });
+                this.catAdded.emit(); // ✅ Notify parent to refresh grid
+                this.dialogRef.close(true);
+                },
+              error: (error) => {
+                console.error('Error saving user:', error);
+                this.snackBar.open('Failed to add category. Please try again.', 'OK', { duration: 3000, panelClass: 'error-snackbar' });
+                }
+              });
+            }
+          }
 
  closeDialog() {
      this.dialogRef.close();

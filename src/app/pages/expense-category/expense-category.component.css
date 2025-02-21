@@ -43,7 +43,6 @@
     display: block; /* Show close button when sidebar is open */
 }
 
-
 .sidebar h2 {
     text-align: center;
     margin-bottom: 20px;
@@ -78,7 +77,7 @@
 
 /* Main Content */
 .main-content {
-   /* margin-left: 230px;*/
+    /*margin-left: 230px;*/
     padding: 20px;
     background: #f8f9fa;
     min-height: 100vh;
@@ -149,6 +148,7 @@
     font-weight: bold;
     color: #007bff;
 }
+
 
 /* Mobile adjustments */
 @media (max-width: 768px) {

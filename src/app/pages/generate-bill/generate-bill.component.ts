@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-//MatDialog
 import { NgIf, CommonModule } from '@angular/common';
 import { FormArray, FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -11,8 +10,6 @@ import { ShopService, Shop } from '../../services/shop.service';
 import { CategoryService, Category } from '../../services/category.service';
 import { ItemService, Item } from '../../services/item.service';
 import { BillService, Bill } from '../../services/bill.service';
-// import { Observable } from 'rxjs';
-// import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-generate-bill',
@@ -22,15 +19,12 @@ import { BillService, Bill } from '../../services/bill.service';
     MatSnackBarModule],
   templateUrl: './generate-bill.component.html',
   styleUrl: './generate-bill.component.css'
-//    providers: [  // ✅ Add MatDialogRef as a provider
-//       { provide: MatDialogRef, useValue: {} },
-//       { provide: MAT_DIALOG_DATA, useValue: {} }
-//     ]
 })
 export class GenerateBillComponent implements OnInit{
    shops: any[] = []; // Store fetched shop data
       category: any[] = [];
       items: any[] = [];
+       bill: any = null;
 billingForm!: FormGroup;
   totalAmount = 0;
 filteredItems: { [key: number]: any[] } = {}; // Store filtered items by index
@@ -46,7 +40,6 @@ filteredItems: { [key: number]: any[] } = {}; // Store filtered items by index
                   private shopService: ShopService,
                   private categoryService: CategoryService,
                   private itemService: ItemService,
-                  //private dialog: MatDialog,
                   private billService: BillService) {}
 
   ngOnInit() {
@@ -107,11 +100,16 @@ addProduct() {
                     this.billService.saveBill(formData).subscribe({
                       next: (response) => {
                         console.log('Bill saved successfully:', response);
+                        this.bill = response; // Store the bill details
                          // ✅ Show success message
                         this.snackBar.open('Bill added successfully!', 'OK', { duration: 3000, panelClass: 'success-snackbar' });
                         this.billAdded.emit(); // ✅ Notify parent to refresh grid
-                        //this.dialog.closeAll();
-                         this.dialogRef.close(true);
+
+                    // ✅ Automatically print the bill
+                       setTimeout(() => this.printBill(), 500);
+
+                     // ✅ Close the dialog after printing
+                     setTimeout(() => this.dialogRef.close(true), 1000);
                       },
                       error: (error) => {
                         console.error('Error saving bill:', error);
@@ -205,10 +203,77 @@ generateBillCode(): string {
     return today.toISOString().split('T')[0]; // Format as "YYYY-MM-DD"
   }
 
-// closeDialog(): void {
-//   this.dialog.closeAll(); // Closes all open dialogs
-// }
 closeDialog() {
   this.dialogRef.close(); // Closes all open dialogs
 }
+
+printBill() {
+  const invoiceHtml = `
+    <html>
+    <head>
+      <style>
+        body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center;
+                 height: 100vh; background: #f8f8f8; }
+        .invoice-container {  width: max-content;  max-width: 80mm; padding: 5px; border: 1px dashed #000;
+                               background: #fff; font-family: 'Courier New', monospace; font-size: 12px;
+                               text-align: left; display: block; margin: 0 auto;  }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: fixed;  }
+        th, td { border-bottom: 1px dashed #000; padding: 3px; text-align: left; word-wrap: break-word;
+                   font-size: 11px; }
+        h2, h3 { margin: 5px 0; }
+         .product-name { max-width: 80px; white-space: nowrap; overflow: hidden;text-overflow: ellipsis; }
+      </style>
+    </head>
+    <body>
+      <div class="invoice-container">
+        <h2>Demo Invoice</h2>
+        <p><strong>Bill Code:</strong> ${this.bill?.billCode}</p>
+        <p><strong>Date:</strong> ${new Date(this.bill?.billingDate).toLocaleDateString()}</p>
+        <p><strong>Shop:</strong> ${this.bill?.shop?.name}</p>
+        <p><strong>Customer:</strong> ${this.bill?.phone}</p>
+        <hr />
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+           ${this.bill?.items.map((item: any) => `
+              <tr>
+                <td class="product-name">${item.product.productName}</td>
+                <td>${item.quantity}</td>
+                <td>₹ ${item.price}</td>
+                <td>₹ ${item.quantity * item.price}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+        <hr />
+        <h3>Total: ₹ ${this.getTotalAmount()}</h3>
+        <p>Thank You! 😊</p>
+      </div>
+    </body>
+    </html>
+  `;
+
+  // Open a new print window and print the invoice
+  const printWindow = window.open('', '_blank');
+  if (printWindow) {
+    printWindow.document.write(invoiceHtml);
+    printWindow.document.close();
+    printWindow.print();
+    printWindow.close();
+  }
+
+  // ✅ Ensure the invoice does NOT stay on the page
+  this.bill = null;
+}
+
+getTotalAmount() {
+    return this.bill.items.reduce((total: number, item: any) => total + (item.quantity * item.price), 0);
+  }
 }

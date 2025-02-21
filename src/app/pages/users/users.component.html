@@ -1,16 +1,18 @@
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-  <button class="close-btn" (click)="toggleSidebar()">✖</button>
+  <button (click)="toggleSidebar()" class="close-btn">✖</button>
   <h2>📊 Dashboard</h2>
   <ul>
-    <li><a routerLink ="/dashboard">🏠 Home</a></li>
-    <li><a routerLink ="/users">👥 Users</a></li>
+    <li><a routerLink="/dashboard">🏠 Home</a></li>
+    <li><a routerLink="/users">👥 Users</a></li>
     <li><a routerLink="/shops">🏬 Shops</a></li>
-    <li><a routerLink="/category">📂 Categories</a></li>
+    <li><a routerLink="/category">📂 Item Category</a></li>
     <li><a routerLink="/items">📦 Items</a></li>
     <li><a routerLink="/bills">🧾 Bills</a></li>
-    <li><a href="#">📊 Reports</a></li>
-    <li><a href="#">⚙ Settings</a></li>
+    <li><a routerLink="/expense-category">🏷️ Cost Category</a></li>
+    <li><a routerLink="/expense">💰 Expense</a></li>
+    <li><a>📊 Reports</a></li>
+    <li><a>⚙ Settings</a></li>
     <li><a routerLink="/logout">🚪 Logout</a></li>
   </ul>
 </div>
@@ -18,15 +20,15 @@
 <!-- Main Content -->
 <div class="main-content">
   <!-- Toggle Button for Smaller Screens -->
-  <button class="menu-btn" (click)="toggleSidebar()">☰</button>
+  <button (click)="toggleSidebar()" class="menu-btn">☰</button>
   <div class="users-page">
     <h1>👥 Users Management</h1>
 
     <!-- Search Bar -->
     <div class="top-controls">
-      <button class="add-btn" (click)="openAddUserDialog()">➕ Add User</button>
+      <button (click)="openAddUserDialog()" class="add-btn">➕ Add User</button>
       <div class="search-container">
-        <input type="text"  placeholder="🔍 Search users..." />
+        <input placeholder="🔍 Search users..." type="text"/>
         <i class="fa fa-search search-icon"></i>
       </div>
     </div>
@@ -58,8 +60,8 @@
     </span>
           </td>
           <td>
-            <button class="edit-btn" (click)="openEditDialog(user)">✏ Edit</button>
-            <button class="delete-btn" (click)="openDeleteDialog(user, $event)">🗑 Delete</button>
+            <button (click)="openEditDialog(user)" class="edit-btn">✏ Edit</button>
+            <button (click)="openDeleteDialog(user, $event)" class="delete-btn">🗑 Delete</button>
           </td>
         </tr>
         </tbody>

@@ -68,51 +68,51 @@ fetchShops() {
             }
 
            // ✅ Open edit popup
-                openEditDialog(shop: any) {
-                  const dialogRef = this.dialog.open(UpdateShopDialogComponent, {
-                    width: '400px',
-                    data: shop // Pass shop data to dialog
-                  });
+           openEditDialog(shop: any) {
+             const dialogRef = this.dialog.open(UpdateShopDialogComponent, {
+             width: '400px',
+             data: shop // Pass shop data to dialog
+            });
 
-                  // Refresh shop list after update
-                  dialogRef.afterClosed().subscribe((result) => {
-                    if (result) {
-                       console.log("Shop Updated:", result);
-                      this.fetchShops();
-                    }
-                  });
-                }
+             // Refresh shop list after update
+            dialogRef.afterClosed().subscribe((result) => {
+             if (result) {
+             console.log("Shop Updated:", result);
+             this.fetchShops();
+             }
+           });
+         }
 
-               // ✅ Delete popup
-                  openDeleteDialog(shop: any, event: MouseEvent): void {
-                      const dialogRef = this.dialog.open(DeleteDialogComponent, {
-                        width: '400px',
-                        data: { name: shop.name },
-                      });
+         // ✅ Delete popup
+         openDeleteDialog(shop: any, event: MouseEvent): void {
+          const dialogRef = this.dialog.open(DeleteDialogComponent, {
+           width: '400px',
+            data: { name: shop.name },
+         });
 
-                      dialogRef.afterClosed().subscribe((confirmed) => {
-                        if (confirmed) {
-                          this.deleteShop(shop.shopId);
-                        }
-                      });
-                    }
+        dialogRef.afterClosed().subscribe((confirmed) => {
+         if (confirmed) {
+          this.deleteShop(shop.shopId);
+          }
+        });
+      }
 
-                deleteShop(shopId: number) {
-                  this.shopService.deleteShop(shopId).subscribe({
-                    next: (response) => {
-                      console.log('Delete Response:', response);
-                        this.snackBar.open('Shop Deleted successfully!', 'OK', { duration: 3000, panelClass: 'success-snackbar' });
-                      this.fetchShops(); // Refresh user list after deletion
-                    },
-                    error: (err) => {
-                      console.error('Error deleting user:', err);
-                      this.snackBar.open('Failed to delete shop. Please try again.', 'OK', { duration: 3000, panelClass: 'error-snackbar' });
-                    }
-                  });
-                }
+        deleteShop(shopId: number) {
+          this.shopService.deleteShop(shopId).subscribe({
+          next: (response) => {
+            console.log('Delete Response:', response);
+            this.snackBar.open('Shop Deleted successfully!', 'OK', { duration: 3000, panelClass: 'success-snackbar' });
+            this.fetchShops(); // Refresh user list after deletion
+         },
+          error: (err) => {
+             console.error('Error deleting user:', err);
+              this.snackBar.open('Failed to delete shop. Please try again.', 'OK', { duration: 3000, panelClass: 'error-snackbar' });
+             }
+           });
+         }
 
-              toggleSidebar() {
-                  const sidebar = document.getElementById('sidebar');
-                  sidebar?.classList.toggle('open');
-              }
+          toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar?.classList.toggle('open');
+          }
 }

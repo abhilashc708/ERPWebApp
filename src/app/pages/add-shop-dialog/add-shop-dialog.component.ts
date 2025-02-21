@@ -24,37 +24,37 @@ export class AddShopDialogComponent implements OnInit{
                   private snackBar: MatSnackBar,
                   private shopService: ShopService) {}
 
-                   ngOnInit() {
-                      this.shopForm = this.fb.group({
-                        name: ['', Validators.required],
-                        email: ['', [Validators.required, Validators.email]],
-                        phone: ['', Validators.required],
-                        location: ['', Validators.required],
-                        address: ['']
-                      });
-                    }
+     ngOnInit() {
+       this.shopForm = this.fb.group({
+        name: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', Validators.required],
+         location: ['', Validators.required],
+         address: ['']
+        });
+      }
 
-                  saveShop() {
-                      if (this.shopForm.valid) {
-                      const formData = { ...this.shopForm.value };
-                        console.log('Shop data:', formData);
+     saveShop() {
+      if (this.shopForm.valid) {
+        const formData = { ...this.shopForm.value };
+         console.log('Shop data:', formData);
 
-                         // ✅ Save user using service
-                              this.shopService.saveShop(formData).subscribe({
-                                next: (response) => {
-                                  console.log('Shop saved successfully:', response);
-                                   // ✅ Show success message
-                                  this.snackBar.open('Shop added successfully!', 'OK', { duration: 3000, panelClass: 'success-snackbar' });
-                                  this.shopAdded.emit(); // ✅ Notify parent to refresh grid
-                                  this.dialogRef.close(true);
-                                },
-                                error: (error) => {
-                                  console.error('Error saving user:', error);
-                                  this.snackBar.open('Failed to add shop. Please try again.', 'OK', { duration: 3000, panelClass: 'error-snackbar' });
-                                }
-                              });
-                      }
-                    }
+         // ✅ Save user using service
+         this.shopService.saveShop(formData).subscribe({
+          next: (response) => {
+            console.log('Shop saved successfully:', response);
+            // ✅ Show success message
+             this.snackBar.open('Shop added successfully!', 'OK', { duration: 3000, panelClass: 'success-snackbar' });
+             this.shopAdded.emit(); // ✅ Notify parent to refresh grid
+             this.dialogRef.close(true);
+           },
+            error: (error) => {
+             console.error('Error saving user:', error);
+             this.snackBar.open('Failed to add shop. Please try again.', 'OK', { duration: 3000, panelClass: 'error-snackbar' });
+             }
+            });
+          }
+        }
 closeDialog() {
     this.dialogRef.close();
   }

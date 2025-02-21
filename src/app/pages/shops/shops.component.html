@@ -1,16 +1,18 @@
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-  <button class="close-btn" (click)="toggleSidebar()">✖</button>
+  <button (click)="toggleSidebar()" class="close-btn">✖</button>
   <h2>📊 Dashboard</h2>
   <ul>
-    <li><a routerLink ="/dashboard">🏠 Home</a></li>
-    <li><a routerLink ="/users">👥 Users</a></li>
+    <li><a routerLink="/dashboard">🏠 Home</a></li>
+    <li><a routerLink="/users">👥 Users</a></li>
     <li><a routerLink="/shops">🏬 Shops</a></li>
-    <li><a routerLink="/category">📂 Categories</a></li>
+    <li><a routerLink="/category">📂 Item Category</a></li>
     <li><a routerLink="/items">📦 Items</a></li>
     <li><a routerLink="/bills">🧾 Bills</a></li>
-    <li><a href="#">📊 Reports</a></li>
-    <li><a href="#">⚙ Settings</a></li>
+    <li><a routerLink="/expense-category">🏷️ Cost Category</a></li>
+    <li><a routerLink="/expense">💰 Expense</a></li>
+    <li><a>📊 Reports</a></li>
+    <li><a>⚙ Settings</a></li>
     <li><a routerLink="/logout">🚪 Logout</a></li>
   </ul>
 </div>
@@ -18,15 +20,15 @@
 <!-- Main Content -->
 <div class="main-content">
   <!-- Toggle Button for Smaller Screens -->
-  <button class="menu-btn" (click)="toggleSidebar()">☰</button>
+  <button (click)="toggleSidebar()" class="menu-btn">☰</button>
   <div class="users-page">
     <h1>🏬 Shops Management</h1>
 
     <!-- Search Bar -->
     <div class="top-controls">
-      <button class="add-btn" (click)="openAddShopDialog()">➕ Add Shop</button>
+      <button (click)="openAddShopDialog()" class="add-btn">➕ Add Shop</button>
       <div class="search-container">
-        <input type="text"  placeholder="🔍 Search shops..." />
+        <input placeholder="🔍 Search shops..." type="text"/>
         <i class="fa fa-search search-icon"></i>
       </div>
     </div>
@@ -52,8 +54,8 @@
           <td>{{ shop.location }}</td>
           <td>{{ shop.phone }}</td>
           <td>
-            <button class="edit-btn" (click)="openEditDialog(shop)">✏ Edit</button>
-            <button class="delete-btn" (click)="openDeleteDialog(shop, $event)">🗑 Delete</button>
+            <button (click)="openEditDialog(shop)" class="edit-btn">✏ Edit</button>
+            <button (click)="openDeleteDialog(shop, $event)" class="delete-btn">🗑 Delete</button>
           </td>
         </tr>
         </tbody>

@@ -28,33 +28,33 @@ export class UpdateCategoryDialogComponent implements OnInit{
                      private categoryService: CategoryService) {}
 
         ngOnInit() {
-                                                this.categoryForm = this.fb.group({
-                                                  category: [this.data.category, Validators.required]
-                                                });
-                                              }
+          this.categoryForm = this.fb.group({
+            category: [this.data.category, Validators.required]
+          });
+        }
 
          // ✅ Save changes
-                                               categoryUpdate() {
-                                                 if (this.categoryForm.valid) {
-                                                   this.categoryService.updateCategory(this.data.categoryId, this.categoryForm.value).subscribe({
-                                                     next: (response) => {
-                                                        console.log('Category updated successfully:', response);
-                                                        // ✅ Show success message
-                                                        this.snackBar.open('Category Updated successfully!', 'OK', { duration: 3000, panelClass: 'success-snackbar' });
-                                                        this.categoryUpdated.emit(); // ✅ Notify parent to refresh grid
-                                                       this.dialogRef.close(true); // Close dialog and refresh list
-                                                     },
-                                                     error: (error) => {
-                                                       console.error('Error updating user:', error);
-                                                       this.snackBar.open('Failed to update category. Please try again.', 'OK', { duration: 3000, panelClass: 'error-snackbar' });
-                                                     }
-                                                   });
-                                                 }
-                                               }
+          categoryUpdate() {
+            if (this.categoryForm.valid) {
+              this.categoryService.updateCategory(this.data.categoryId, this.categoryForm.value).subscribe({
+               next: (response) => {
+               console.log('Category updated successfully:', response);
+               // ✅ Show success message
+               this.snackBar.open('Category Updated successfully!', 'OK', { duration: 3000, panelClass: 'success-snackbar' });
+               this.categoryUpdated.emit(); // ✅ Notify parent to refresh grid
+               this.dialogRef.close(true); // Close dialog and refresh list
+              },
+              error: (error) => {
+                console.error('Error updating user:', error);
+                this.snackBar.open('Failed to update category. Please try again.', 'OK', { duration: 3000, panelClass: 'error-snackbar' });
+              }
+            });
+          }
+        }
 
-                                             closeDialog() {
-                                                 this.dialogRef.close();
-                                               }
+ closeDialog() {
+  this.dialogRef.close();
+ }
 
 
 }

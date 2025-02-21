@@ -1,0 +1,29 @@
+<div class="form-container">
+  <h2>➕ Add New Expense</h2>
+  <form (submit)="saveExpense()" [formGroup]="expenseForm">
+
+    <label>Select Expense:</label>
+    <select formControlName="expenseItemId" required>
+      <option *ngFor="let ext of expenseCategory" [value]="ext.expenseItemId">{{ ext.expenseItemName }}</option>
+    </select>
+
+    <label>Rate:</label>
+    <input formControlName="rate" required type="text">
+
+    <label for="paymentMethod">Payment Method</label>
+    <select formControlName="paymentMethod" id="paymentMethod" required>
+      <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
+    </select>
+
+    <label>Select Shop:</label>
+    <select formControlName="shopId" required>
+      <option *ngFor="let shop of shops" [value]="shop.shopId">{{ shop.name }}</option>
+    </select>
+
+    <div class="modal-buttons">
+      <button [disabled]="expenseForm.invalid" type="submit">✅ Save</button>
+      <button (click)="closeDialog()" type="button">❌ Cancel</button>
+    </div>
+  </form>
+</div>
+

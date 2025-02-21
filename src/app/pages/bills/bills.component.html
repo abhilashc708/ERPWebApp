@@ -1,16 +1,18 @@
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-  <button class="close-btn" (click)="toggleSidebar()">✖</button>
+  <button (click)="toggleSidebar()" class="close-btn">✖</button>
   <h2>📊 Dashboard</h2>
   <ul>
-    <li><a routerLink ="/dashboard">🏠 Home</a></li>
-    <li><a routerLink ="/users">👥 Users</a></li>
+    <li><a routerLink="/dashboard">🏠 Home</a></li>
+    <li><a routerLink="/users">👥 Users</a></li>
     <li><a routerLink="/shops">🏬 Shops</a></li>
-    <li><a routerLink="/category">📂 Categories</a></li>
+    <li><a routerLink="/category">📂 Item Category</a></li>
     <li><a routerLink="/items">📦 Items</a></li>
     <li><a routerLink="/bills">🧾 Bills</a></li>
-    <li><a href="#">📊 Reports</a></li>
-    <li><a href="#">⚙ Settings</a></li>
+    <li><a routerLink="/expense-category">🏷️ Cost Category</a></li>
+    <li><a routerLink="/expense">💰 Expense</a></li>  <!-- New Expense Menu -->
+    <li><a>📊 Reports</a></li>
+    <li><a>⚙ Settings</a></li>
     <li><a routerLink="/logout">🚪 Logout</a></li>
   </ul>
 </div>
@@ -18,16 +20,23 @@
 <!-- Main Content -->
 <div class="main-content">
   <!-- Toggle Button for Smaller Screens -->
-  <button class="menu-btn" (click)="toggleSidebar()">☰</button>
+  <button (click)="toggleSidebar()" class="menu-btn">☰</button>
   <div class="users-page">
     <h1>🧾 Bills Management</h1>
 
     <!-- Search Bar -->
     <div class="top-controls">
-      <button class="add-btn" (click)="openAddBillDialog()">➕ New Bill</button>
-      <div class="search-container">
-        <input type="text"  placeholder="🔍 Search bills..." />
-        <i class="fa fa-search search-icon"></i>
+      <button (click)="openAddBillDialog()" class="add-btn">➕ New Bill</button>
+      <!-- Search by Date -->
+      <div class="search-bar-group">
+        <div class="search-container">
+          <input (change)="fetchBillsByDate()" [(ngModel)]="selectedDate" placeholder="📅 Select Date" type="date">
+        </div>
+
+        <!-- Search by Shop Name -->
+        <div class="search-container">
+          <input (input)="fetchBillsByDate()" [(ngModel)]="selectedShop" placeholder="🏬 Search Shop" type="text">
+        </div>
       </div>
     </div>
 
@@ -70,7 +79,7 @@
           </td>
           <td>{{ bill.shop.name }}</td>
           <td>
-            <button class="delete-btn"  (click)="printInvoice(bill)">🖨 Print</button>
+            <button (click)="printInvoice(bill)" class="delete-btn">🖨 Print</button>
           </td>
         </tr>
         </tbody>

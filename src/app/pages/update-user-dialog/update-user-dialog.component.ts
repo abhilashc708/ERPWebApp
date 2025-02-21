@@ -19,9 +19,6 @@ export class UpdateUserDialogComponent implements OnInit{
  userForm!: FormGroup;  // ✅ Define userForm
 shops: any[] = []; // ✅ Define 'shops' property
 
-  // ✅ Inject HttpClient using Angular 19 method
-  //private http = inject(HttpClient);
-
   @Output() userUpdated = new EventEmitter<void>(); // ✅ Event to notify parent
 
   constructor(
@@ -46,17 +43,6 @@ shops: any[] = []; // ✅ Define 'shops' property
     });
   this.fetchShops(); // ✅ Call function to load shops
   }
-
-// fetchShops() {
-//   this.http.get<any[]>(`${environment.apiBaseUrl}/api/admin/shop`).subscribe({
-//     next: (data: any[]) => { // ✅ Explicitly define 'data' type as 'any[]'
-//       this.shops = data;
-//     },
-//     error: (err: any) => {
-//       console.error('Error fetching shops:', err);
-//     }
-//   });
-// }
 
 fetchShops() {
     this.shopService.getShops().subscribe({

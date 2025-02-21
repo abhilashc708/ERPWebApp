@@ -1,16 +1,18 @@
 <!-- Sidebar -->
 <div class="sidebar" id="sidebar">
-  <button class="close-btn" (click)="toggleSidebar()">✖</button>
+  <button (click)="toggleSidebar()" class="close-btn">✖</button>
   <h2>📊 Dashboard</h2>
   <ul>
     <li><a routerLink="/dashboard">🏠 Home</a></li>
-    <li><a routerLink="users">👥 Users</a></li>
+    <li><a routerLink="/users">👥 Users</a></li>
     <li><a routerLink="/shops">🏬 Shops</a></li>
-    <li><a routerLink="/category">📂 Categories</a></li>
+    <li><a routerLink="/category">📂 Item Category</a></li>
     <li><a routerLink="/items">📦 Items</a></li>
     <li><a routerLink="/bills">🧾 Bills</a></li>
-    <li><a href="#">📊 Reports</a></li>
-    <li><a href="#">⚙ Settings</a></li>
+    <li><a routerLink="/expense-category">🏷️ Cost Category</a></li>
+    <li><a routerLink="/expense">💰 Expense</a></li> <!-- New Expense Menu -->
+    <li><a>📊 Reports</a></li>
+    <li><a>⚙ Settings</a></li>
     <li><a routerLink="/logout">🚪 Logout</a></li>
   </ul>
 </div>
@@ -18,21 +20,21 @@
 <!-- Main Content -->
 <div class="main-content">
   <!-- Toggle Button for Smaller Screens -->
-  <button class="menu-btn" (click)="toggleSidebar()">☰</button>
+  <button (click)="toggleSidebar()" class="menu-btn">☰</button>
 
   <div class="topbar">
-    <input type="text" placeholder="🔍 Search...">
+    <input placeholder="🔍 Search..." type="text">
     <!-- New buttons -->
     <!--<button class="sales-btn">💸 Sales</button>
     <button class="expense-btn">💵 Expense</button>-->
     <!-- Sales Button -->
-    <button class="sales-btn">
+    <button (click)="openAddBillDialog()" class="sales-btn">
       <span>Sales</span> <!-- This will be hidden on mobile -->
       💵 <!-- Example icon for Sales -->
     </button>
 
     <!-- Expense Button -->
-    <button class="expense-btn">
+    <button (click)="openAddExpenseDialog()" class="expense-btn">
       <span>Expense</span> <!-- This will be hidden on mobile -->
       💸 <!-- Example icon for Expense -->
     </button>

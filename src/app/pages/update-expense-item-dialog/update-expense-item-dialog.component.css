@@ -1,0 +1,116 @@
+/* Center the popup with a smooth effect */
+h2 {
+  text-align: center;
+  font-size: 1.6rem; /* Reduced font size */
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+/* Stylish popup container */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px; /* Reduced max width */
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+  max-height: 100vh; /* Limit max height */
+  overflow-y: auto; /* Scroll if needed */
+}
+
+/* Input fields with compact spacing */
+input, select {
+  padding: 8px; /* Reduced padding */
+  font-size: 0.9rem; /* Slightly smaller text */
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  width: 100%;
+  transition: 0.3s;
+}
+
+input:focus, select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Labels with compact spacing */
+label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 6px;
+  display: block;
+}
+
+/* Modal buttons container */
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* Styled Save & Cancel buttons */
+button {
+  padding: 8px 16px; /* Reduced padding */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* Save button */
+button[type="submit"] {
+  background: #28a745;
+  color: white;
+}
+
+button[type="submit"]:hover {
+  background: #218838;
+}
+
+/* Cancel button */
+button[type="button"] {
+  background: #dc3545;
+  color: white;
+}
+
+button[type="button"]:hover {
+  background: #c82333;
+}
+
+/* Make the form scrollable when it overflows */
+@media screen and (max-height: 700px) {
+  .form-container {
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Success Popup Box */
+.success-snackbar {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+/* Error Popup Box */
+.error-snackbar {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
