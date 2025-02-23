@@ -20,6 +20,7 @@ export interface ExpenseItem {
 
 export interface Expense {
     expenseId: number;
+    expenseBillCode: string,
     paymentMethod: string;
     rate: string;
     shopId: number;

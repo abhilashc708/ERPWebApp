@@ -11,7 +11,7 @@
     <li><a routerLink="/bills">🧾 Bills</a></li>
     <li><a routerLink="/expense-category">🏷️ Cost Category</a></li>
     <li><a routerLink="/expense">💰 Expense</a></li>
-    <li><a>📊 Reports</a></li>
+    <li><a routerLink="/reports">📊 Reports</a></li>
     <li><a>⚙ Settings</a></li>
     <li><a routerLink="/logout">🚪 Logout</a></li>
   </ul>
@@ -38,6 +38,7 @@
       <table>
         <thead>
         <tr>
+          <th>Expense Bill Code</th>
           <th>Expense Name</th>
           <th>Cost</th>
           <th>PaymentMethod</th>
@@ -47,6 +48,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let item of expenses()">
+          <td>{{ item.expenseBillCode }}</td>
           <td>{{ item.expenseItem.expenseItemName }}</td>
           <td>{{ item.rate }}</td>
           <td>{{ item.paymentMethod }}</td>

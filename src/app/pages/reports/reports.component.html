@@ -1,0 +1,104 @@
+<div class="sidebar" id="sidebar">
+  <button (click)="toggleSidebar()" class="close-btn">✖</button>
+  <h2>📊 Dashboard</h2>
+  <ul>
+    <li><a routerLink="/dashboard">🏠 Home</a></li>
+    <li><a routerLink="/users">👥 Users</a></li>
+    <li><a routerLink="/shops">🏬 Shops</a></li>
+    <li><a routerLink="/category">📂 Item Category</a></li>
+    <li><a routerLink="/items">📦 Items</a></li>
+    <li><a routerLink="/bills">🧾 Bills</a></li>
+    <li><a routerLink="/expense-category">🏷️ Cost Category</a></li>
+    <li><a routerLink="/expense">💰 Expense</a></li>
+    <li><a routerLink="/reports">📊 Reports</a></li>
+    <li><a>⚙ Settings</a></li>
+    <li><a routerLink="/logout">🚪 Logout</a></li>
+  </ul>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <button (click)="toggleSidebar()" class="menu-btn">☰</button>
+  <!-- Reports Page -->
+  <div class="reports-container">
+    <div class="users-page">
+      <h2>📊 Business Reports</h2>
+    </div>
+    <!-- Date Range & Filter -->
+    <div class="filter-section">
+      <label>📅 From:</label>
+      <input [(ngModel)]="startDate" type="date">
+      <label>📅 To:</label>
+      <input [(ngModel)]="endDate" type="date">
+      <button (click)="fetchReports()">🔍 Filter</button>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+      <div class="card sales">
+        <h3>Total Sales</h3>
+        <p>₹{{ totalSales }}</p>
+      </div>
+      <div class="card expenses">
+        <h3>Total Expenses</h3>
+        <p>₹{{ totalExpenses }}</p>
+      </div>
+      <div class="card profit">
+        <h3>Net Profit</h3>
+        <p>₹{{ totalProfit }}</p>
+      </div>
+    </div>
+
+    <!-- Data Table -->
+    <div class="report-table">
+      <h2>📄 Detailed Transactions</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Bill Code</th>
+          <th>Total Amount</th>
+          <th>Payment Method</th>
+          <th>Branch</th>
+          <th>Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <tr *ngFor="let record of displayedRecords">
+          <td>{{ record.billingDate | date: 'dd-MMM-yyyy' }}</td>
+          <td>{{ record.billCode }}</td>
+          <td>{{ record.totalAmount }}</td>
+          <td>{{ record.paymentMethod }}</td>
+          <td>{{ record.branch }}</td>
+          <td>
+  <span [ngClass]="{'text-green': record.type === 'Sales', 'text-red': record.type === 'Expense'}">
+    {{ record.type }}
+  </span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Charts -->
+    <div class="chart-section">
+      <div class="chart-box">
+        <h2>📊 Sales vs Expenses</h2>
+        <canvas id="salesExpenseChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h2>📊 Category Breakdown</h2>
+        <canvas id="categoryChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Export Buttons -->
+    <div class="export-buttons">
+      <button (click)="exportPDF()">📄 Export PDF</button>
+      <button (click)="exportCSV()">📊 Export CSV</button>
+    </div>
+
+
+  </div>
+</div>

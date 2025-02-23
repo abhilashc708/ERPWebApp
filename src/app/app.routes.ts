@@ -13,6 +13,7 @@ import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { ExpenseCategoryComponent } from './pages/expense-category/expense-category.component';
 import { ExpenseComponent } from './pages/expense/expense.component';
+import { ReportsComponent } from './pages/reports/reports.component';
 
 
 
@@ -85,6 +86,11 @@ import { ExpenseComponent } from './pages/expense/expense.component';
 {
       path:'expense',
       component: ExpenseComponent,
+      canActivate: [authGuard]
+},
+{
+      path:'reports',
+      component: ReportsComponent,
       canActivate: [authGuard]
 }
 ];
