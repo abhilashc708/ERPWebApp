@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, EventEmitter, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgIf, CommonModule } from '@angular/common';
-import { FormArray, FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormsModule, FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar'; // ✅ Import MatSnackBar
@@ -10,17 +10,27 @@ import { ShopService, Shop } from '../../services/shop.service';
 import { CategoryService, Category } from '../../services/category.service';
 import { ItemService, Item } from '../../services/item.service';
 import { BillService, Bill } from '../../services/bill.service';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatOptionModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-generate-bill',
   imports: [CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule],
+    MatSnackBarModule,
+     MatAutocompleteModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatOptionModule],
   templateUrl: './generate-bill.component.html',
   styleUrl: './generate-bill.component.css'
 })
 export class GenerateBillComponent implements OnInit{
+//    categoryControl = new FormControl(); // Control for Autocomplete
+//     filteredCategories: Category[] = []; // Filtered category list
    shops: any[] = []; // Store fetched shop data
       category: any[] = [];
       items: any[] = [];
@@ -52,6 +62,10 @@ filteredItems: { [key: number]: any[] } = {}; // Store filtered items by index
       items: this.fb.array([])
     });
   this.fetchCategory();
+//      // ✅ Explicitly define the type of `value`
+//       this.categoryControl.valueChanges.subscribe((value: string) => {
+//         this.filteredCategories = this.filterCategories(value);
+//       });
    this.fetchShops();
    this.fetchItems();
     this.addProduct(); // Add an initial item
@@ -70,6 +84,13 @@ addProduct() {
   });
 
  this.productsFormArray.push(productForm);
+
+ setTimeout(() => {
+   const tableWrapper = document.querySelector('.table-wrapper');
+   if (tableWrapper) {
+     tableWrapper.scrollTo({ top: tableWrapper.scrollHeight, behavior: 'smooth' });
+   }
+ }, 100);
 }
 
 
@@ -125,6 +146,19 @@ fetchCategory() {
                   error: (err: any) => console.error('Error fetching category:', err)
               });
           }
+
+//  filterCategories(value: string): Category[] {
+//      if (!value) return this.category;
+//      return this.category.filter(cat =>
+//        cat.category.toLowerCase().includes(value.toLowerCase())
+//      );
+//    }
+//
+//    onCategorySelected(category: Category, index: number) {
+//      this.productsFormArray.at(index).patchValue({ categoryId: category.id });
+//    }
+
+
          fetchShops() {
                   this.shopService.getShops().subscribe({
                       next: (data: any) => this.shops = data,  // Fix `.set()` issue

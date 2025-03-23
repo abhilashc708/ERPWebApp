@@ -1,75 +1,166 @@
+<!--<div class="billing-container">-->
+<!--  <div class="form-header">-->
+<!--  <h2>🧾 Billing Form</h2>-->
+<!--  <button class="close-btn" (click)="closeDialog()">❌</button>-->
+<!--</div>-->
+<!--  <form [formGroup]="billingForm" (submit)="submitBill()">-->
+<!--    <div class="form-group">-->
+<!--      <label>Bill Code</label>-->
+<!--      <input type="text" formControlName="billCode" required />-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label>Billing Date</label>-->
+<!--      <input type="date" formControlName="billingDate" required />-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--    <label>Select Shop:</label>-->
+<!--    <select formControlName="shopId" required>-->
+<!--      <option *ngFor="let shop of shops" [value]="shop.shopId">{{ shop.name }}</option>-->
+<!--    </select>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label>Phone Number</label>-->
+<!--      <input type="text"  formControlName="phone" required />-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label>Items</label>-->
+<!--      <table formArrayName="items">-->
+<!--        <tr>-->
+<!--          <th>Category</th>-->
+<!--          <th>Item Name</th>-->
+<!--          <th>Quantity</th>-->
+<!--          <th>Price</th>-->
+<!--          <th>Total</th>-->
+<!--          <th>Actions</th>-->
+<!--        </tr>-->
+<!--        <tr *ngFor="let product of productsFormArray.controls; let i = index" [formGroupName]="i">-->
+<!--          <td>-->
+<!--            <select formControlName="categoryId" (change)="onCategoryChange(i)" required>-->
+<!--              <option *ngFor="let cat of category" [value]="cat.categoryId">-->
+<!--                {{ cat.category }}-->
+<!--              </option>-->
+<!--            </select>-->
+<!--          </td>-->
+
+<!--          <td>-->
+<!--            <select formControlName="itemId" (change)="onItemChange(i)" required>-->
+<!--              <option *ngFor="let itm of filteredItems[i]" [value]="itm.productId">-->
+<!--                {{ itm.productName }}-->
+<!--              </option>-->
+<!--            </select>-->
+<!--          </td>-->
+<!--          <td><input type="number"  formControlName="quantity"  (input)="onQuantityChange(i)" (input)="updateTotal(i)" min="1"/></td>-->
+<!--          <td><input type="number"  formControlName="price" (input)="updateTotal(i)"/></td>-->
+<!--          <td>{{ getTotal(i) }}</td>-->
+<!--          <td><button type="button" (click)="removeProduct(i)">🗑 Remove</button></td>-->
+<!--        </tr>-->
+
+<!--      </table>-->
+<!--      <button type="button" (click)="addProduct()">➕ Add Item</button>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="paymentMethod">Payment Method</label>-->
+<!--      <select id="paymentMethod" formControlName="paymentMethod" required>-->
+<!--        <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>-->
+<!--      </select>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label>Total Amount:</label>-->
+<!--      <h3>₹ {{ totalAmount }}</h3>-->
+<!--    </div>-->
+
+<!--    <button type="submit" class="submit-btn" [disabled]="billingForm.invalid">Submit Bill</button>-->
+<!--  </form>-->
+<!--</div>-->
+
 <div class="billing-container">
   <div class="form-header">
-  <h2>🧾 Billing Form</h2>
-  <button class="close-btn" (click)="closeDialog()">❌</button>
-</div>
-  <form [formGroup]="billingForm" (submit)="submitBill()">
-    <div class="form-group">
-      <label>Bill Code</label>
-      <input type="text" formControlName="billCode" required />
+    <h2>🧾 Billing Form</h2>
+    <button (click)="closeDialog()" class="close-btn">❌</button>
+  </div>
+
+  <form (submit)="submitBill()" [formGroup]="billingForm">
+    <div class="form-group-row">
+      <div class="form-group">
+        <label>Bill Code</label>
+        <input formControlName="billCode" required type="text"/>
+      </div>
+      <div class="form-group">
+        <label>Billing Date</label>
+        <input formControlName="billingDate" required type="date"/>
+      </div>
     </div>
-    <div class="form-group">
-      <label>Billing Date</label>
-      <input type="date" formControlName="billingDate" required />
+
+    <div class="form-group-row">
+      <div class="form-group">
+        <label>Select Shop:</label>
+        <select formControlName="shopId" required>
+          <option *ngFor="let shop of shops" [value]="shop.shopId">{{ shop.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input formControlName="phone" required type="text"/>
+      </div>
     </div>
-    <div class="form-group">
-    <label>Select Shop:</label>
-    <select formControlName="shopId" required>
-      <option *ngFor="let shop of shops" [value]="shop.shopId">{{ shop.name }}</option>
-    </select>
-    </div>
-    <div class="form-group">
-      <label>Phone Number</label>
-      <input type="text"  formControlName="phone" required />
-    </div>
+
     <div class="form-group">
       <label>Items</label>
-      <table formArrayName="items">
-        <tr>
-          <th>Category</th>
-          <th>Item Name</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Total</th>
-          <th>Actions</th>
-        </tr>
-<!--        <tr *ngFor="let item of items.controls; let i = index">-->
-        <tr *ngFor="let product of productsFormArray.controls; let i = index" [formGroupName]="i">
-          <td>
-            <select formControlName="categoryId" (change)="onCategoryChange(i)" required>
-              <option *ngFor="let cat of category" [value]="cat.categoryId">
-                {{ cat.category }}
-              </option>
-            </select>
-          </td>
-
-          <td>
-            <select formControlName="itemId" (change)="onItemChange(i)" required>
-              <option *ngFor="let itm of filteredItems[i]" [value]="itm.productId">
-                {{ itm.productName }}
-              </option>
-            </select>
-          </td>
-          <td><input type="number"  formControlName="quantity"  (input)="onQuantityChange(i)" (input)="updateTotal(i)" min="1"/></td>
-          <td><input type="number"  formControlName="price" (input)="updateTotal(i)"/></td>
-          <td>{{ getTotal(i) }}</td>
-          <td><button type="button" (click)="removeProduct(i)">🗑 Remove</button></td>
-        </tr>
-
-      </table>
-      <button type="button" (click)="addProduct()">➕ Add Item</button>
-    </div>
-    <div class="form-group">
-      <label for="paymentMethod">Payment Method</label>
-      <select id="paymentMethod" formControlName="paymentMethod" required>
-        <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Total Amount:</label>
-      <h3>₹ {{ totalAmount }}</h3>
+      <div class="table-wrapper">
+        <table formArrayName="items">
+          <thead>
+          <tr>
+            <th class="wide-column">Category</th>
+            <th class="wide-column">Items</th>
+            <th class="small-column">Quantity</th>
+            <th class="small-column">Price</th>
+            <th class="small-column">Total</th>
+            <th class="actions-column">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let product of productsFormArray.controls; let i = index" [formGroupName]="i">
+            <td>
+              <select (change)="onCategoryChange(i)" class="wide-input" formControlName="categoryId" required>
+                <option *ngFor="let cat of category" [value]="cat.categoryId">
+                  {{ cat.category }}
+                </option>
+              </select>
+            </td>
+            <td>
+              <select (change)="onItemChange(i)" class="wide-input" formControlName="itemId" required>
+                <option *ngFor="let itm of filteredItems[i]" [value]="itm.productId">
+                  {{ itm.productName }}
+                </option>
+              </select>
+            </td>
+            <td><input (input)="updateTotal(i)" class="small-input" formControlName="quantity" min="1" type="number"/>
+            </td>
+            <td><input (input)="updateTotal(i)" class="small-input" formControlName="price" type="number"/></td>
+            <td>{{ getTotal(i) }}</td>
+            <td>
+              <button (click)="removeProduct(i)" class="remove-btn" type="button">🗑</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <button (click)="addProduct()" class="add-btn" type="button">➕ Add Item</button>
     </div>
 
-    <button type="submit" class="submit-btn" [disabled]="billingForm.invalid">Submit Bill</button>
+    <div class="form-group-row">
+      <div class="form-group">
+        <label for="paymentMethod">Payment Method</label>
+        <select formControlName="paymentMethod" id="paymentMethod" required>
+          <option *ngFor="let method of paymentMethods" [value]="method">{{ method }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Total Amount:</label>
+        <h3>₹ {{ totalAmount }}</h3>
+      </div>
+    </div>
+
+    <button [disabled]="billingForm.invalid" class="submit-btn" type="submit">Submit Bill</button>
   </form>
 </div>
