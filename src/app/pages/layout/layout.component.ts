@@ -23,8 +23,9 @@ export class LayoutComponent {
   }
   openAddBillDialog() {
     const dialogRef = this.dialog.open(GenerateBillComponent, {
-    width: '750px',  // Set width
-    maxHeight: '100vh', // Limit max height to 90% of viewport height
+    minWidth: '800px', // ✅ Ensures minimum width
+    maxWidth: '90vw',  // ✅ Prevents dialog from being too large
+    maxHeight: '90vh', // Limit max height to 90% of viewport height
     autoFocus: false, // Prevents automatic focus on the first input field
     });
 
